@@ -67,3 +67,238 @@ You can see the following resources to learn more about your solution and the AB
 * [Web Application Development Tutorial](https://abp.io/docs/latest/tutorials/book-store/part-01?UI=Blazor&DB=EF)
 * [Application Startup Template Structure](https://abp.io/docs/latest/solution-templates/layered-web-application)
 * [LeptonX Lite MVC UI](https://abp.io/docs/latest/ui-themes/lepton-x-lite/asp-net-core)
+
+# 📝 ToDo App
+
+A user-friendly task management web application that allows users to log in, view, filter, create, edit, and update their personal tasks with progress tracking.
+
+> ⚠️ **Requirements**
+> - Make sure **MS SQL Server** is installed and running on your machine.
+> - Run the provided **DB Migrator** to set up the initial database schema before starting the application.
+> - The system comes with a default user:
+>   - **Username**: `admin`
+>   - **Password**: `1q2w3E*`
+
+---
+
+## 🚀 Features
+
+- 🔐 **User Authentication**  
+  Secure login required to access the app.
+
+- 📋 **Task Dashboard**  
+  View all tasks created by the logged-in user.
+
+- 🔍 **Advanced Filtering**  
+  Filter tasks by:
+  - Due Date Range (From / To)
+  - Priority (Low, Medium, High)
+  - Status (pending, In Progress, Completed)
+
+- ➕ **Create Tasks**  
+  Add new tasks with a title, description, due date, priority, and initial status.
+
+- ✏️ **Edit Tasks**  
+  Modify task details including progress and status.
+
+- 📈 **Progress Tracking**  
+  Update the progress of each task (pending, In Progress, Completed).
+
+---
+
+## 📂 Navigation Flow
+
+1. **Login** to your account.
+   - The default credentials are:
+     - **Username**: `admin`
+     - **Password**: `1q2w3E*`
+2. Add  ToDoPermissions from user in managment
+3. Go to the **ToDo** menu.
+4. Select **Tasks**.
+5. Use the filter bar to narrow down your tasks.
+6. Create, edit, or update progress as needed.
+
+ToDo API Documentation
+Overview
+
+This API provides endpoints for managing todo tasks, including creating, reading, updating, and deleting tasks. It also supports filtering, sorting, and pagination for task listings.
+Base URL
+
+All API endpoints start with: /api/app/todo
+Authentication
+
+This API requires authentication. Ensure you include valid credentials with each request.
+Endpoints
+Get All Tasks
+
+Endpoint: GET /api/app/todo
+
+Description: Retrieve a list of todo tasks with optional filtering and pagination.
+
+Query Parameters:
+
+    Status (optional): Filter tasks by status. Refer to the ToDo.ToDo.Status schema.
+
+    priority (optional): Filter tasks by priority. Refer to the ToDo.ToDo.Priority schema.
+
+    From (optional): Filter tasks created after this date-time (ISO 8601 format).
+
+    To (optional): Filter tasks created before this date-time (ISO 8601 format).
+
+    Sorting (optional): Specify sorting criteria (e.g., "priority desc").
+
+    SkipCount (optional): Number of tasks to skip (for pagination). Must be >= 0.
+
+    MaxResultCount (optional): Maximum number of tasks to return (for pagination). Must be >= 1.
+
+Responses:
+
+    200: Success. Returns a paginated list of tasks (PagedResultDto<TodoTaskDTO>).
+
+    400: Bad Request.
+
+    401: Unauthorized.
+
+    403: Forbidden.
+
+    404: Not Found.
+
+    500: Server Error.
+
+    501: Server Error.
+
+Create a Task
+
+Endpoint: POST /api/app/todo
+
+Description: Create a new todo task.
+
+Request Body:
+Provide a TodoTaskCreateUpdateDTO in JSON format.
+
+Responses:
+
+    200: Success. Returns the created task (TodoTaskDTO).
+
+    400: Bad Request.
+
+    401: Unauthorized.
+
+    403: Forbidden.
+
+    404: Not Found.
+
+    500: Server Error.
+
+    501: Server Error.
+
+Update a Task
+
+Endpoint: PUT /api/app/todo/{id}
+
+Description: Update an existing todo task.
+
+Path Parameters:
+
+    id: The unique identifier (UUID) of the task to update.
+
+Request Body:
+Provide a TodoTaskCreateUpdateDTO in JSON format.
+
+Responses:
+
+    200: Success. Returns the updated task (TodoTaskDTO).
+
+    400: Bad Request.
+
+    401: Unauthorized.
+
+    403: Forbidden.
+
+    404: Not Found.
+
+    500: Server Error.
+
+    501: Server Error.
+
+Update Task Status
+
+Endpoint: PUT /api/app/todo/{id}/status
+
+Description: Update the status of an existing todo task.
+
+Path Parameters:
+
+    id: The unique identifier (UUID) of the task to update.
+
+Query Parameters:
+
+    status: The new status for the task. Refer to the ToDo.ToDo.Status schema.
+
+Responses:
+
+    200: Success.
+
+    400: Bad Request.
+
+    401: Unauthorized.
+
+    403: Forbidden.
+
+    404: Not Found.
+
+    500: Server Error.
+
+    501: Server Error.
+
+Delete a Task
+
+Endpoint: DELETE /api/app/todo/{id}
+
+Description: Delete an existing todo task.
+
+Path Parameters:
+
+    id: The unique identifier (UUID) of the task to delete.
+
+Responses:
+
+    200: Success.
+
+    400: Bad Request.
+
+    401: Unauthorized.
+
+    403: Forbidden.
+
+    404: Not Found.
+
+    500: Server Error.
+
+    501: Server Error.
+
+Get a Task by ID
+
+Endpoint: GET /api/app/todo/{id}
+
+Description: Retrieve a single todo task by its ID.
+
+Path Parameters:
+
+    id: The unique identifier (UUID) of the task to retrieve.
+
+Responses:
+
+    200: Success. Returns the task (TodoTaskDTO).
+
+    400: Bad Request.
+
+    401: Unauthorized.
+
+    403: Forbidden.
+
+    404: Not Found.
+
+    500: Server Error.
+
+    501: Server Error.
