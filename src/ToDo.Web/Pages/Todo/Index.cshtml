@@ -1,0 +1,61 @@
+﻿@page
+@model ToDo.Web.Pages.Todo.ToDoIndexModel
+@using ToDo.Localization;
+@using ToDo.ToDo
+@using ToDo.Web.Pages.Todo;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<ToDoResource> L;
+@section scripts {
+<abp-script src="/Pages/Todo/index.js" />
+}
+@{
+    var priorities = Html.GetEnumSelectList<ToDo.ToDo.Priority>();
+    priorities = priorities;
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Todo"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NewTaskButton"
+                            text="@L["NewTask"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-row>
+
+            <div class="col-2">
+                <label>Status</label>
+                <select asp-items="Html.GetEnumSelectList<ToDo.ToDo.Status>()" id="Status">
+                    <option value="">Select </option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label>Priority</label>
+                <select asp-items="priorities" id="Priority">
+                    <option value="">Select </option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>From</label>
+                <input  name="From" id="From" type="date" />
+                <i class="fas fa-calendar-alt calendar-icon"></i>
+            </div>
+            <div class="col-3">
+                <label>To</label>
+                <input  name="To" id="To" type="date" />
+                <i class="fas fa-calendar-alt calendar-icon"></i>
+            </div>
+            <div class="col-2">
+                <abp-button class="btn-sm" onclick="Search()" button-type="Primary" icon="search" text="Filter" />
+            </div>
+
+            <abp-table class="col-12" striped-rows="true" id="TasksTable"></abp-table>
+        </abp-row>
+    </abp-card-body>
+</abp-card>

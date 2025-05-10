@@ -1,0 +1,21 @@
+﻿@page
+@model ToDo.Web.Pages.Todo.ProgressModalModel
+@using ToDo.Localization
+@using ToDo.Web.Pages.Todo
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@inject IStringLocalizer<ToDoResource> L
+@{
+    Layout = null;//abp-model="ToDoTask"
+}
+<form  asp-page="/Todo/ProgressModal">
+    <abp-modal>
+        <abp-modal-header title="@L["Progress"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Id" />
+            <abp-select asp-for="Status" asp-items="Html.GetEnumSelectList<ToDo.ToDo.Status>()" />
+            
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
