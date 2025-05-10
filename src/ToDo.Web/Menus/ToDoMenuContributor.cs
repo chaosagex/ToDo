@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using ToDo.Localization;
 using ToDo.MultiTenancy;
+using ToDo.Permissions;
+using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
@@ -45,7 +47,7 @@ public class ToDoMenuContributor : IMenuContributor
                    l["Menu:Tasks"],
                      "/Todo"
                     )
-                )
+                ).RequirePermissions(ToDoPermissions.ToDo.Default)
         );
         if (MultiTenancyConsts.IsEnabled)
         {

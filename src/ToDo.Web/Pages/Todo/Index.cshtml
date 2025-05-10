@@ -1,10 +1,13 @@
 ﻿@page
 @model ToDo.Web.Pages.Todo.ToDoIndexModel
+@using Microsoft.AspNetCore.Authorization
 @using ToDo.Localization;
+@using ToDo.Permissions
 @using ToDo.ToDo
 @using ToDo.Web.Pages.Todo;
 @using Microsoft.Extensions.Localization;
 @inject IStringLocalizer<ToDoResource> L;
+@inject IAuthorizationService AuthorizationService
 @section scripts {
 <abp-script src="/Pages/Todo/index.js" />
 }
@@ -18,12 +21,16 @@
             <abp-column size-md="_6">
                 <abp-card-title>@L["Todo"]</abp-card-title>
             </abp-column>
-            <abp-column size-md="_6" class="text-end">
-                <abp-button id="NewTaskButton"
-                            text="@L["NewTask"].Value"
-                            icon="plus"
-                            button-type="Primary" />
-            </abp-column>
+            @if (await AuthorizationService.IsGrantedAsync(ToDoPermissions.ToDo.Create))
+            {
+                <abp-column size-md="_6" class="text-end">
+                    <abp-button id="NewTaskButton"
+                                text="@L["NewTask"].Value"
+                                icon="plus"
+                                button-type="Primary" />
+                </abp-column>
+            }
+            
         </abp-row>
     </abp-card-header>
     <abp-card-body>

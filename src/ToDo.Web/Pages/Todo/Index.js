@@ -70,18 +70,21 @@ $(function () {
                             [
                                 {
                                     text: l('Edit'),
+                                    visible: abp.auth.isGranted('ToDo.Tasks.Edit'),
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
                                     }
                                 },
                                 {
                                     text: l('UpdateProgress'),
+                                    visible: abp.auth.isGranted('ToDo.Tasks.Progress'),
                                     action: function (data) {
                                         progressModal.open({ id: data.record.id });
                                     }
                                 },
                                 {
                                     text: l('Delete'),
+                                    visible: abp.auth.isGranted('ToDo.Tasks.Delete'),
                                     confirmMessage: function (data) {
                                         return l(
                                             'TaskDelete',

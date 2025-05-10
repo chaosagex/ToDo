@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +11,7 @@ using System.IO;
 using ToDo.EntityFrameworkCore;
 using ToDo.Localization;
 using ToDo.MultiTenancy;
+using ToDo.Permissions;
 using ToDo.ToDo;
 using ToDo.ToDo.Services;
 using ToDo.Web.Menus;
@@ -107,6 +109,13 @@ public class ToDoWebModule : AbpModule
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
         context.Services.AddTransient<IToDoTaskAppService, TodoAppService>();
+        Configure<RazorPagesOptions>(options =>
+        {
+            options.Conventions.AuthorizePage("/Todo/Index", ToDoPermissions.ToDo.Default);
+            options.Conventions.AuthorizePage("/Todo/CreateModal", ToDoPermissions.ToDo.Create);
+            options.Conventions.AuthorizePage("/Todo/EditModal", ToDoPermissions.ToDo.Edit);
+            options.Conventions.AuthorizePage("/Todo/Progressodal", ToDoPermissions.ToDo.Progress);
+        });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)

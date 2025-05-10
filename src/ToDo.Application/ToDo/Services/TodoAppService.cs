@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDo.Permissions;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -19,6 +20,11 @@ namespace ToDo.ToDo.Services
 
         public TodoAppService(IRepository<ToDoTask, Guid> repository) : base(repository)
         {
+            GetPolicyName = ToDoPermissions.ToDo.Default;
+            GetListPolicyName = ToDoPermissions.ToDo.Default;
+            CreatePolicyName = ToDoPermissions.ToDo.Create;
+            UpdatePolicyName = ToDoPermissions.ToDo.Edit;
+            DeletePolicyName = ToDoPermissions.ToDo.Delete;
         }
         public async override Task<PagedResultDto<TodoTaskDTO>> GetListAsync(TaskFilterAndSortDto input)
         {

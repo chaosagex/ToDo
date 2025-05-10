@@ -27,6 +27,12 @@
     "NewTask": "New Task",
     "Update": "Update",
     "UpdateProgress": "Update Progress",
-    "Progress": "Progress"
+    "Progress": "Progress",
+    "Permission:Todo.Progress": "Update Task Status",
+    "Permission:Todo.Delete": "Delete Tasks",
+    "Permission:Todo.Create": "Create Tasks",
+    "Permission:Todo.Edit": "Edit Tasks",
+    "Permission:ToDo": "ToDo",
+    "Permission:ToDoTasks": "ToDo Managment"
   }
 }
